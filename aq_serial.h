@@ -25,7 +25,7 @@
 #define DEV_MASTER      0x00
 #define SWG_DEV_ID      0x50
 #define IAQ_DEV_ID      0x33
-
+#define TCX_DEV_ID      0xd8
 /* Few Device ID's in decimal for quick checking
 #  Pentair pump ID's
 #  0x60 to 0x6F (0x60, 0x61 0x62, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6A, 0x6B, 0x6C, 0x6D, 0x6E, 0x6F)
@@ -77,6 +77,7 @@
 #define CMD_MSG         0x03
 #define CMD_MSG_LONG    0x04
 #define CMD_MSG_LOOP_ST 0x08
+#define CMD_TCX_STATUS  0x71
 
 /* ACK RETURN COMMANDS */
 /*
@@ -100,6 +101,7 @@
 #define ACK_ONETOUCH             0x80
 #define ACK_ALLB_SIM             0x80 // Jandy's Allbutton simulator uses this and not ACK_NORMAL
 #define ACK_ALLB_SIM_BUSY        0x81 // Jandy's Allbutton simulator uses this and not ACK_SCREEN_BUSY_SCROLL
+#define ACK_TCX                  0x79 //Looks Like Jandy TCX ACK Command
 
 /* ONE TOUCH KEYCODES */
 #define KEY_ONET_UP              0x06
@@ -124,7 +126,8 @@
 #define KEY_PDA_SELECT 0x04
 //#define KEY_PDA_PGUP   0x01 // Think these are hot key #1
 //#define KEY_PDA_PGDN   0x03 // Think these are hot key #2
-
+//Jandy TCX Commands
+#define TCX_PVS        0x72
 /* KEY/BUTTON CODES */
 #define KEY_PUMP      0x02
 #define KEY_SPA       0x01

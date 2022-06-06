@@ -65,9 +65,9 @@ bool _keepRunning = true;
 unsigned char _goodID[] = {0x0a, 0x0b, 0x08, 0x09};
 unsigned char _goodPDAID[] = {0x60, 0x61, 0x62, 0x63}; // PDA Panel only supports one PDA.
 unsigned char _goodONETID[] = {0x40, 0x41, 0x42, 0x43};
-unsigned char _goodIAQTID[] = {0x30, 0x31, 0x32, 0x33};
+unsigned char _goodIAQTID[] = {0x30, 0x31, 0x32, 0x33, 0xd8};
 //unsigned char _goodRSSAID[] = {0x48, 0x49, 0x4a, 0x4b};
-unsigned char _goodRSSAID[] = {0x48, 0x49};  // Know there are only 2 good RS SA id's, guess 0x49 is the second.
+unsigned char _goodRSSAID[] = {0x48, 0x49,0x10};  // Know there are only 2 good RS SA id's, guess 0x49 is the second.
 unsigned char _filter[10];
 int _filters=0;
 bool _rawlog=false;
@@ -110,6 +110,8 @@ void intHandler(int dummy) {
 const char *getDevice(unsigned char ID) {
   if (ID >= 0x00 && ID <= 0x03)
     return MASTER;
+  if (ID >= 0xd8 && ID <= 0xd8)
+    return MASTER;
   if (ID >= 0x08 && ID <= 0x0B)
     return KEYPAD;
   if (ID >= 0x50 && ID <= 0x53)
@@ -124,6 +126,8 @@ const char *getDevice(unsigned char ID) {
     return ONE_T;
   if (ID >= 0x48 && ID <= 0x4B)
     return RS_SERL;
+  if (ID >= 0x10 && ID <= 0x10)
+        return RS_SERL;
   if (ID >= 0x58 && ID <= 0x5B)
     return PC_DOCK;
   if (ID >= 0x60 && ID <= 0x63)
@@ -144,12 +148,12 @@ const char *getPentairDevice(unsigned char ID) {
     return P_VSP;
   if (ID == 0x02)
     return P_SWG;
-  if (ID == 0x10)  
-    return P_MASTER;
+  // if (ID == 0x10)
+   //  return P_MASTER;
   if (ID == 0x0F)
     return P_BCAST;
-  if (ID == 0x10)
-    return P_CTL;
+ //if (ID == 0x10)
+ //   return P_CTL;
   if (ID == 0x20)
     return P_RCTL;
   if (ID == 0x22)
@@ -180,11 +184,11 @@ bool canUse(unsigned char ID) {
     if (ID == _goodONETID[i])
       return true;
   }
-  for (i = 0; i < 4; i++) {
+  for (i = 0; i < 5; i++) {
     if (ID == _goodIAQTID[i])
       return true;
   }
-  for (i = 0; i < 2; i++) {
+  for (i = 0; i < 3; i++) {
     if (ID == _goodRSSAID[i])
       return true;
   }
@@ -204,11 +208,11 @@ char* canUseExtended(unsigned char ID) {
     if (ID == _goodONETID[i])
       return " <-- can use for Aqualinkd (Extended Device ID)";
   }
-  for (i = 0; i < 4; i++) {
+  for (i = 0; i < 5; i++) {
     if (ID == _goodIAQTID[i])
       return " <-- can use for Aqualinkd (Prefered Extended Device ID)";
   }
-  for (i = 0; i < 2; i++) {
+  for (i = 0; i < 3; i++) {
     if (ID == _goodRSSAID[i])
       return " <-- can use for Aqualinkd (RSSA ID)";
   }

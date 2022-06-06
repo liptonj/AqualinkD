@@ -130,6 +130,15 @@ const char* get_packet_type(unsigned char* packet , int length)
     case RSSA_DEV_READY:
       return "RSSA SendCommand";
     break;
+    case ACK_TCX:
+          return "TCX Ack";
+    break;
+    case CMD_TCX_STATUS:
+          return "TCX Status";
+    break;
+    case TCX_PVS:
+          return "TCX PVS";
+    break;
     default:
       sprintf(buf, "Unknown '0x%02hhx'", packet[PKT_CMD]);
       return buf;
