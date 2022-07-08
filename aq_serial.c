@@ -175,7 +175,7 @@ bool check_jandy_checksum(unsigned char* packet, int length)
  //   if (getLogLevel(RSSD_LOG) >= LOG_DEBUG) {
  //     static char buf[1000];
  //     beautifyPacket(buf,packet,length);
-      LOG(RSSD_LOG,LOG_DEBUG, "Packetin question %s\n",buf);
+  //    LOG(RSSD_LOG,LOG_DEBUG, "Packetin question %s\n",buf);
  //   }
 //    return true;
  // }
