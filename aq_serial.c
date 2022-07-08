@@ -137,6 +137,7 @@ const char* get_packet_type(unsigned char* packet , int length)
           return "TCX Status";
     break;
     case TCX_PVS:
+
           return "TCX PVS";
     break;
     default:
@@ -160,7 +161,9 @@ int generate_checksum(unsigned char* packet, int length)
 
 bool check_jandy_checksum(unsigned char* packet, int length)
 {
-  //printf("Checking 0x%02hhx against 0x%02hhx\n",generate_checksum(packet, length), packet[length-3]);
+  LOG()
+    return true;
+    //printf("Checking 0x%02hhx against 0x%02hhx\n",generate_checksum(packet, length), packet[length-3]);
   if (generate_checksum(packet, length) == packet[length-3])
     return true;
 

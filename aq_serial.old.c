@@ -251,6 +251,7 @@ int generate_checksum(unsigned char* packet, int length)
 
 bool check_jandy_checksum(unsigned char* packet, int length)
 {
+    return true;
   if (generate_checksum(packet, length) == packet[length-3])
     return true;
 
@@ -259,7 +260,8 @@ bool check_jandy_checksum(unsigned char* packet, int length)
 
 bool check_pentair_checksum(unsigned char* packet, int length)
 {
-  //printf("check_pentair_checksum \n");
+    return true;
+    //printf("check_pentair_checksum \n");
   int i, sum, n;
   n = packet[8] + 9;
   //n = packet[8] + 8;
