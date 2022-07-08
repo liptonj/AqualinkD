@@ -161,7 +161,6 @@ int generate_checksum(unsigned char* packet, int length)
 
 bool check_jandy_checksum(unsigned char* packet, int length)
 {
-  LOG()
     return true;
     //printf("Checking 0x%02hhx against 0x%02hhx\n",generate_checksum(packet, length), packet[length-3]);
   if (generate_checksum(packet, length) == packet[length-3])
