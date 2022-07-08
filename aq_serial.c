@@ -163,52 +163,53 @@ bool check_jandy_checksum(unsigned char* packet, int length)
 {
     return true;
     //printf("Checking 0x%02hhx against 0x%02hhx\n",generate_checksum(packet, length), packet[length-3]);
-  if (generate_checksum(packet, length) == packet[length-3])
-    return true;
+  //if (generate_checksum(packet, length) == packet[length-3])
+ //   return true;
 
   // There seems to be a bug with jandy one touch protocol where on a long msg to one touch you get
   // a bad checksum but everything is actually accurate, so forcing a good return on this.
   // Example message (always one touch / status message / line 3 and always 0x0a checksum)
   // 0x10|0x02|0x43|0x04|0x03|0x20|0x20|0x20|0x20|0x35|0x3a|0x30|0x35|0x20|0x50|0x4d|0x20|0x20|0x20|0x20|0x20|0x0a|0x10|0x03|
-  if (packet[3] == 0x04 && packet[4] == 0x03 && packet[length-3] == 0x0a) {
-    LOG(RSSD_LOG,LOG_INFO, "Ignoring bad checksum, seems to be bug in Jandy protocol\n");
-    if (getLogLevel(RSSD_LOG) >= LOG_DEBUG) {
-      static char buf[1000];
-      beautifyPacket(buf,packet,length);
+//  if (packet[3] == 0x04 && packet[4] == 0x03 && packet[length-3] == 0x0a) {
+  //  LOG(RSSD_LOG,LOG_INFO, "Ignoring bad checksum, seems to be bug in Jandy protocol\n");
+ //   if (getLogLevel(RSSD_LOG) >= LOG_DEBUG) {
+ //     static char buf[1000];
+ //     beautifyPacket(buf,packet,length);
       LOG(RSSD_LOG,LOG_DEBUG, "Packetin question %s\n",buf);
-    }
-    return true;
-  }
+ //   }
+//    return true;
+ // }
 
-  return false;
+  //return false;
 }
 
 bool check_pentair_checksum(unsigned char* packet, int length)
 {
-  //printf("check_pentair_checksum \n");
-  int i, sum, n;
-  n = packet[8] + 9;
+  return true;
+    //printf("check_pentair_checksum \n");
+  //int i, sum, n;
+  //n = packet[8] + 9;
   //n = packet[8] + 8;
-  sum = 0;
-  for (i = 3; i < n; i++) {
+  //sum = 0;
+ // for (i = 3; i < n; i++) {
     //printf("Sum 0x%02hhx\n",packet[i]);
-    sum += (int) packet[i];
-  }
+  //  sum += (int) packet[i];
+  //}
 
   //printf("Check High 0x%02hhx = 0x%02hhx = 0x%02hhx\n",packet[n], packet[length-2],((sum >> 8) & 0xFF) );
   //printf("Check Low  0x%02hhx = 0x%02hhx = 0x%02hhx\n",packet[n + 1], packet[length-1], (sum & 0xFF) ); 
 
   // Check against caculated length
-  if (sum == (packet[length-2] * 256 + packet[length-1]))
-    return true;
+  //if (sum == (packet[length-2] * 256 + packet[length-1]))
+   // return true;
 
   // Check against actual # length
-  if (sum == (packet[n] * 256 + packet[n+1])) {
-    LOG(RSSD_LOG,LOG_ERR, "Pentair checksum is accurate but length is not\n");
-    return true;
-  }
+  //if (sum == (packet[n] * 256 + packet[n+1])) {
+   // LOG(RSSD_LOG,LOG_ERR, "Pentair checksum is accurate but length is not\n");
+   // return true;
+ // }
   
-  return false;
+ // return false;
 }
 
 
